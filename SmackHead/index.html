@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>
+    SMACK THE HEAD
+    </title>
+    <style>
+        body{margin: 0 auto;padding:0;overflow: hidden;}
+        .h{
+            width:100px;
+            height:100%;
+            background-color:rgb(185,122,87);
+            position:absolute;
+            top:100%;
+            left:100px;
+            background-image:url(smacked.png);
+            background-size:100%;
+            border-radius:100px 100px 0px 0px;
+            background-repeat: no-repeat;
+        }
+        #h1{left:100px;}
+        #h2{left:250px;}
+        #h3{left:400px;}
+        .le{
+            position:relative;
+            width:30px;
+            height:30px;
+            border-radius:100px;
+            background-color:rgb(185,122,87);
+            z-index: -1;
+        }
+        .re{
+            position:relative;
+            width:30px;
+            height:30px;
+            border-radius:100px;
+            background-color:rgb(185,122,87);
+            z-index: -1;
+            left:70px;
+            bottom:28px;
+        }
+        .Gui{
+            float:right;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="Gui">Score: <span id="score"></span><br><span id="restart"></span></div>
+    <div class="h" id="h1">
+        <div class="le"></div>
+        <div class="re"></div>
+    </div>
+    <div class="h" id="h2">
+        <div class="le"></div>
+        <div class="re"></div>
+    </div>
+    <div class="h" id="h3">
+        <div class="le"></div>
+        <div class="re"></div>
+    </div>
+        <script>
+            let score = 0;
+    gameOver = function(score){
+        $('.h').stop();
+        $('.h').css('top','100%');
+        $('#restart').html("GameOver! <br>Do you want to <br>play again? <br>[YES]");
+    }
+    reStart = function(){
+        score=0;
+        $('#score').text(score);
+        gameOn();
+
+    }
+    $(document).ready(function(){
+        score=0;
+        $('#score').text(score);
+        gameOn = function(){
+             $('.h').animate({'top':'0%'},5000,function(){
+                                      gameOver(score);
+
+             });
+         $('.h').click(function(){
+            score++;
+            $('#score').text(score);
+            $(this).css('background-image','url(head.png)');
+            $(this).stop().animate({'top':'100%'},300,()=>{
+                $(this).css('background-image','url(smacked.png)');
+                 $('.h').animate({'top':'0%'},5000,function(){
+                });
+            });
+         });
+        }
+        gameOn();
+        
+        $("#restart").click(function(){
+           $('#restart').html("");
+           reStart(); 
+        });
+        
+    });
+    </script>
+</body>
+</html>
